@@ -54,7 +54,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile   # <-- Change this if your Dockerfile is in a subfolder
+          file: ./Dockerfile   
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/flask-app:latest
 
