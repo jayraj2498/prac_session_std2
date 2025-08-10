@@ -1,23 +1,20 @@
-# Use the official python image from the docker hub 
-FROM python: 3.9-slim  
+# Use the official python image from the Docker Hub
+FROM python:3.9-slim
 
-# set the working directory 
-WORKDIR /app 
+# Set the working directory
+WORKDIR /app
 
-# copy the current directory contents into conantainer at /app  
+# Copy requirements first (better caching)
+COPY requirements.txt .
 
-COPY . /app 
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-#  install any nedded packeges specified in requirements.txt 
+# Copy the rest of the application code
+COPY . .
 
-RUN pip install flask 
+# Expose the port your app runs on
+EXPOSE 5000
 
-# make the port 5000 available to the world outside this coantainer 
-
-EXPOSE 5000 
-
-# Run the app.py when the coantainer launches 
-
-CMD ["python","app.py"]    
-
-
+# Command to run your app
+CMD ["python", "app.py"]
